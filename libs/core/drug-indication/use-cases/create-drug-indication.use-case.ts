@@ -1,8 +1,8 @@
 import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { DrugIndication } from '../entities/drug-indication.entity';
 import { scrapeIndicationsFromDailyMed } from 'libs/infrastructure/src/scrapers/dailymed.scraper';
-import { mapIndicationToICD10 } from 'libs/infrastructure/mapper/indication-mapper';
 import { DrugIndicationRepositoryImpl } from 'libs/infrastructure/src/database/repositories/drug-indication.repository.impl';
+import { mapIndicationToICD10 } from 'libs/infrastructure/src/mapper/indication-mapper';
 
 @Injectable()
 export class CreateDrugIndicationUseCase {
