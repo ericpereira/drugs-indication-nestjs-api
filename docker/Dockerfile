@@ -1,23 +1,23 @@
 # Dockerfile
 FROM node:18-alpine
 
-# Define o diretório de trabalho
+# Defines the work directory
 WORKDIR /app
 
-# Copia os arquivos package.json e package-lock.json
+# Copies the package files and package-lock.json
 COPY package*.json ./
 
-# Instala as dependências
+# Install the premises
 RUN npm install
 
-# Copia todo o projeto
+# Copy the whole project
 COPY . .
 
-# Compila o projeto
+# Compiles the project
 RUN npm run build
 
-# Expõe a porta padrão do NestJS
+# Exposes the standard gate of NESTJS
 EXPOSE 3000
 
-# Comando para iniciar a aplicação
+# Command to start the application
 CMD ["npm", "run", "start:prod"]
