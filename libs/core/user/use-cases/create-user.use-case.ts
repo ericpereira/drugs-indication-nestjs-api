@@ -9,7 +9,6 @@ export class CreateUserUseCase {
   constructor(private readonly userRepo: UserRepositoryImpl) {}
 
   async execute(data: UserDTO): Promise<User> {
-    // encrypt password
     const hashedPassword = await bcrypt.hash(data.password, 10);
 
     return this.userRepo.create({

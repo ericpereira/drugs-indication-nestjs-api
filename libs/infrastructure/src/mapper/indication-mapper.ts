@@ -3,11 +3,11 @@ import * as dotenv from 'dotenv';
 import { CohereClient } from "cohere-ai";
 dotenv.config();
 
-const cohere = new CohereClient({
-  token: process.env.COHERE_API_KEY || '',
-});
-
 export async function mapIndicationToICD10(indication: string): Promise<any | null> {
+  const cohere = new CohereClient({
+    token: process.env.COHERE_API_KEY || '',
+  });
+
   const prompt = `
 You are a medical coding assistant. Map the following drug indication to the most appropriate ICD-10 code.
 If the condition cannot be mapped, say "UNMAPPABLE". I have more than one indication, return an array with all indications.
@@ -27,10 +27,9 @@ console.log('prompt', prompt)
       },
     });
   
-    const result = response.text;
+    const result = response?.text;
     return result;
   } catch (e) {
-    console.error(e);
     return null;
   }
 }

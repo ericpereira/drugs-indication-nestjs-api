@@ -7,7 +7,7 @@ export enum UserRole {
 }
 
 @Schema()
-export class User extends Document {
+export class User {
   @Prop()
   name: string;
 
@@ -31,13 +31,13 @@ export class User extends Document {
     password: string,
     role: UserRole
   ) {
-    super();
-    this._id = id;
     this.name = name;
     this.email = email;
     this.password = password;
     this.role = role;
   }
 }
+
+export type UserDocument = User & Document;
 
 export const UserSchema = SchemaFactory.createForClass(User);

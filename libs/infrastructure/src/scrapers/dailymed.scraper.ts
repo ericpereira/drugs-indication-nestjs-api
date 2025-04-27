@@ -12,7 +12,7 @@ interface ScraperResponse {
   indications: string[]
 }
 
-async function getSetIdFromDrugName(drugName: string): Promise<DrugApiReponse | null> {
+export async function getSetIdFromDrugName(drugName: string): Promise<DrugApiReponse | null> {
   try {
     const apiUrl = `https://dailymed.nlm.nih.gov/dailymed/services/v2/spls.json?drug_name=${encodeURIComponent(drugName)}`;
     const response = await axios.get(apiUrl);
@@ -48,14 +48,14 @@ export async function scrapeIndicationsFromDailyMed(query: string): Promise<Scra
 
     let indications: string[] = [];
 
-    // Tenta com o LOINC code da seção "Indications and Usage"
+    // Try with the "Indications and Usage" LONC CODE
     const section42229 = $('div.Section[data-sectioncode="42229-5"]');
     section42229.find('p').each((_, el) => {
       const text = $(el).text().trim();
       if (text) indications.push(text);
     });
 
-    // Fallback para Highlights caso a seção principal esteja vazia
+    // Fallback for highlights if the main section is empty
     if (indications.length === 0) {
       const highlights = $('#Highlights');
       highlights.find('p').each((_, el) => {

@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 import { Indications } from '../interfaces/drug-indication.interface';
 
 @Schema()
-export class DrugIndication extends Document {
+export class DrugIndication {
   @Prop()
   drugName: string;
 
@@ -19,12 +19,12 @@ export class DrugIndication extends Document {
     rawText: string,
     indications?: Indications[] | null
   ) {
-    super();
-    this._id = id;
     this.drugName = drugName;
     this.rawText = rawText;
     this.indications = indications;
   }
 }
+
+export type DrugIndicationDocument = DrugIndication & Document;
 
 export const DrugIndicationSchema = SchemaFactory.createForClass(DrugIndication);
